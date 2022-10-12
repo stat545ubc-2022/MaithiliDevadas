@@ -31,6 +31,10 @@ library(tidyverse)
     ## ✖ dplyr::filter() masks stats::filter()
     ## ✖ dplyr::lag()    masks stats::lag()
 
+``` r
+library(dplyr)
+```
+
 3.  Make a repository in the <https://github.com/stat545ubc-2022>
     Organization. You will be working with this repository for the
     entire data analysis project. You can either make it public, or make
@@ -509,8 +513,10 @@ to explore the dataset before forming research questions.
 
 ``` r
 #To understand how the variable 'perimeter_mean' is distributed across our sample, we create a histogram.
-hist(cancer_sample$perimeter_mean, main = 'Distribution of mean cancer sample perimeter', xlab = 'mean of perimeter', breaks=12, col="blue")
+ggplot(cancer_sample, aes(x = perimeter_mean)) + geom_histogram() + ggtitle('Distribution of mean cancer sample perimeter')
 ```
+
+    ## `stat_bin()` using `bins = 30`. Pick better value with `binwidth`.
 
 ![](mini-project-1_files/figure-gfm/unnamed-chunk-5-1.png)<!-- -->
 
@@ -635,39 +641,141 @@ task that needs a categorical variable.). Comment on why each task helps
 
 Ensure that the output of each operation is printed!
 
-**Summarizing:**
+**Summarizing:** \# Summary by group using dplyr
 
-1.  Compute the *range*, *mean*, and *two other summary statistics* of
-    **one numerical variable** across the groups of **one categorical
-    variable** from your data.
-2.  Compute the number of observations for at least one of your
-    categorical variables. Do not use the function `table()`!
-3.  Create a categorical variable with 3 or more groups from an existing
-    numerical variable. You can use this new variable in the other
-    tasks! *An example: age in years into “child, teen, adult, senior”.*
-4.  Based on two categorical variables, calculate two summary statistics
-    of your choosing.
+    1.  Compute the *range*, *mean*, and *two other summary statistics* of **one numerical variable** across the groups of **one categorical variable** from your data.
+    2.  Compute the number of observations for at least one of your categorical variables. Do not use the function `table()`!
+    3.  Create a categorical variable with 3 or more groups from an existing numerical variable. You can use this new variable in the other tasks! *An example: age in years into "child, teen, adult, senior".*
+    4.  Based on two categorical variables, calculate two summary statistics of your choosing.
 
-**Graphing:**
+    **Graphing:**
 
-5.  Create a graph out of summarized variables that has at least two
-    geom layers.
-6.  Create a graph of your choosing, make one of the axes logarithmic,
-    and format the axes labels so that they are “pretty” or easier to
-    read.
-7.  Make a graph where it makes sense to customize the alpha
-    transparency.
-8.  Create 3 histograms out of summarized variables, with each histogram
-    having different sized bins. Pick the “best” one and explain why it
-    is the best.
+    5.  Create a graph out of summarized variables that has at least two geom layers.
+    6.  Create a graph of your choosing, make one of the axes logarithmic, and format the axes labels so that they are "pretty" or easier to read.
+    7.  Make a graph where it makes sense to customize the alpha transparency.
+    8.  Create 3 histograms out of summarized variables, with each histogram having different sized bins. Pick the "best" one and explain why it is the best.
 
-Make sure it’s clear what research question you are doing each operation
-for!
+    Make sure it's clear what research question you are doing each operation for!
 
-<!------------------------- Start your work below ----------------------------->
-<!----------------------------------------------------------------------------->
+    <!------------------------- Start your work below ----------------------------->
+    #Considering our variables of interest, we generate summary statistics for a few of them.
 
-### 1.2 (3 points)
+    ```r
+    #The following displays summary statistics for perimeter_mean which is one of the variables of interest.
+    cancer_sample %>%                               
+      group_by(diagnosis) %>% 
+      summarize(Min = min(perimeter_mean),
+                Qunatile1 = quantile(perimeter_mean, 0.25),
+                Median = median(perimeter_mean),
+                Mean = mean(perimeter_mean),
+                Quantile3 = quantile(perimeter_mean, 0.75),
+                Range = max(area_mean)-min(area_mean),
+                Max = max(radius_mean))
+
+    ## # A tibble: 2 × 8
+    ##   diagnosis   Min Qunatile1 Median  Mean Quantile3 Range   Max
+    ##   <chr>     <dbl>     <dbl>  <dbl> <dbl>     <dbl> <dbl> <dbl>
+    ## 1 B          43.8      70.9   78.2  78.1      86.1  849.  17.8
+    ## 2 M          71.9      98.7  114.  115.      130.  2139.  28.1
+
+``` r
+#The following displays summary statistics for area_mean which is one of the variables of interest.
+cancer_sample %>%                               
+  group_by(diagnosis) %>% 
+  summarize(Min = min(area_mean),
+            Quantile1 = quantile(area_mean, 0.25),
+            Median = median(area_mean),
+            Mean = mean(area_mean),
+            Quantile3 = quantile(area_mean, 0.75),
+            Range = max(area_mean)-min(area_mean),
+            Max = max(area_mean))
+```
+
+    ## # A tibble: 2 × 8
+    ##   diagnosis   Min Quantile1 Median  Mean Quantile3 Range   Max
+    ##   <chr>     <dbl>     <dbl>  <dbl> <dbl>     <dbl> <dbl> <dbl>
+    ## 1 B          144.      378.   458.  463.      551.  849.  992.
+    ## 2 M          362.      705.   932   978.     1204. 2139. 2501
+
+``` r
+#The following displays summary statistics for compactness_mean which is one of the variables of interest.
+cancer_sample %>%                               
+  group_by(diagnosis) %>% 
+  summarize(Min = min(compactness_mean),
+            Quantile1 = quantile(compactness_mean, 0.25),
+            Median = median(compactness_mean),
+            Mean = mean(compactness_mean),
+            Quantile3 = quantile(compactness_mean, 0.75),
+            Range = max(compactness_mean)-min(compactness_mean),
+            Max = max(compactness_mean))
+```
+
+    ## # A tibble: 2 × 8
+    ##   diagnosis    Min Quantile1 Median   Mean Quantile3 Range   Max
+    ##   <chr>      <dbl>     <dbl>  <dbl>  <dbl>     <dbl> <dbl> <dbl>
+    ## 1 B         0.0194    0.0556 0.0753 0.0801    0.0976 0.205 0.224
+    ## 2 M         0.0460    0.110  0.132  0.145     0.172  0.299 0.345
+
+``` r
+#The following displays summary statistics for texture_mean which is one of the variables of interest.
+cancer_sample %>%                               
+  group_by(diagnosis) %>% 
+  summarize(Min = min(texture_mean),
+            Quantile1 = quantile(texture_mean, 0.25),
+            Median = median(texture_mean),
+            Mean = mean(texture_mean),
+            Quantile3 = quantile(texture_mean, 0.75),
+            Range = max(texture_mean)-min(texture_mean),
+            Max = max(texture_mean))
+```
+
+    ## # A tibble: 2 × 8
+    ##   diagnosis   Min Quantile1 Median  Mean Quantile3 Range   Max
+    ##   <chr>     <dbl>     <dbl>  <dbl> <dbl>     <dbl> <dbl> <dbl>
+    ## 1 B          9.71      15.2   17.4  17.9      19.8  24.1  33.8
+    ## 2 M         10.4       19.3   21.5  21.6      23.8  28.9  39.3
+
+``` r
+#We continue by creating graphs for our variables of interest using two geom_layers.
+
+#Boxplot showing the distribution of the variable 'perimeter_mean' for the two different kinds of diagnosis.
+ggplot(data = cancer_sample, mapping = aes(x =diagnosis, y = perimeter_mean)) +
+    geom_boxplot(alpha = 0) + labs(title = " Relationship between perimeter and diagnosis")+
+    geom_jitter(alpha = 0.4, color = "tomato")
+```
+
+![](mini-project-1_files/figure-gfm/unnamed-chunk-7-1.png)<!-- -->
+
+``` r
+#Scatterplot showing relationship between radius_mean and texture_mean for the two different kinds of diagnosis. 
+ggplot(cancer_sample, aes(x=radius_mean, y=texture_mean, shape=diagnosis, color=diagnosis)) + labs(title="Relationship between radius and texture", x="Radius Mean", y="Texture Mean") +
+  geom_point() + geom_smooth(method=lm, se=FALSE, fullrange=TRUE)
+```
+
+    ## `geom_smooth()` using formula 'y ~ x'
+
+![](mini-project-1_files/figure-gfm/unnamed-chunk-7-2.png)<!-- -->
+
+``` r
+#Scatterplot showing the relationship between compactness_mean and texture_mean for the two different kinds of diagnosis.
+ggplot(cancer_sample, aes(x=compactness_mean, y=texture_mean, shape=diagnosis, color=diagnosis)) + labs(title="Relationship between compactness and texture", x="Compactness Mean", y="Texture Mean") +
+  geom_point() + geom_smooth(method=lm, se=FALSE, fullrange=TRUE)
+```
+
+    ## `geom_smooth()` using formula 'y ~ x'
+
+![](mini-project-1_files/figure-gfm/unnamed-chunk-7-3.png)<!-- -->
+
+``` r
+#Boxplot showing the distribution of area_mean for the two different kinds of diagnosis. 
+ggplot(data = cancer_sample, mapping = aes(x =diagnosis, y = area_mean)) +
+    geom_boxplot(alpha = 0) + labs(title = " Relationship between area and diagnosis")+
+    geom_jitter(alpha = 0.4, color = "red")
+```
+
+![](mini-project-1_files/figure-gfm/unnamed-chunk-7-4.png)<!-- -->
+
+\`\`\` \### 1.2 (3 points)
 
 Based on the operations that you’ve completed, how much closer are you
 to answering your research questions? Think about what aspects of your
@@ -676,6 +784,18 @@ refined, now that you’ve investigated your data a bit more? Which
 research questions are yielding interesting results?
 
 <!-------------------------- Start your work below ---------------------------->
+
+When attempting to work on this dataset, I wanted to determine whether
+there are certain nuclear features that help predict whether the cancer
+is malignant and benign. After the initial data exploration, I am able
+to see certain trends in the variables of interest. Going further, I
+would like to understand whether these predictor variables have a
+significant relationship with our dependent variable (diagnosis).
+Variables such as area_mean, perimeter_mean, compactness_mean seem to be
+following a trend. I would like to look into the fractal_dimensions
+aspect of the study as well. The visualisations did not have a clear
+interpretation and thus, conducting more tests to understand whether
+there exists a significant relationship would be useful.  
 <!----------------------------------------------------------------------------->
 
 ### Attribution
