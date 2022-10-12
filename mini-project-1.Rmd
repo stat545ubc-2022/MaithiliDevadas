@@ -293,7 +293,7 @@ ggplot(cancer_sample, aes(x=radius_mean, y=texture_mean, shape=diagnosis, color=
   geom_point() + geom_smooth(method=lm, se=FALSE, fullrange=TRUE)
 
 #Scatterplot showing the relationship between compactness_mean and texture_mean for the two different kinds of diagnosis.
-ggplot(cancer_sample, aes(x=compactness_mean, y=texture_mean, shape=diagnosis, color=diagnosis)) + labs(title="Relationship between radius and texture", x="Compactness Mean", y="Texture Mean") +
+ggplot(cancer_sample, aes(x=compactness_mean, y=texture_mean, shape=diagnosis, color=diagnosis)) + labs(title="Relationship between compactness and texture", x="Compactness Mean", y="Texture Mean") +
   geom_point() + geom_smooth(method=lm, se=FALSE, fullrange=TRUE)
 
 #Boxplot showing the distribution of area_mean for the two different kinds of diagnosis. 
