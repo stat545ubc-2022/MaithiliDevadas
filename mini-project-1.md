@@ -10,6 +10,8 @@ And hopefully the first of many. Let’s get started:
 
 <!-- -->
 
+\#For good practice do not leave install commands in code chunks
+
 ``` r
 #install.packages("devtools")
 #devtools::install_github("UBC-MDS/datateachr")
