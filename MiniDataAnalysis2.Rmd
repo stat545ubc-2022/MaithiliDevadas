@@ -204,6 +204,8 @@ Now, choose two of the following tasks.
 <!-------------------------- Start your work below ---------------------------->
 ```{r}
 
+#install.packages("forcats")
+library(forcats)
 #Using fct_infreq from the forcats package to order the levels in decreasing order of frequency to understand the distribution of our variable. 
 cancer_sample_freq<- cancer_sample %>%
    mutate(perimeter_category = (fct_infreq(perimeter_category)))
@@ -221,15 +223,9 @@ ggplot(cancer_sample_freq, aes(perimeter_category)) + geom_bar()
 
 <!----------------------------------------------------------------------------->
 ```{r}
- #Based on the plot above, we combine 'large' and 'very large' categories into 'other' because there are not too many data points in these categories. We further classify them into the 'benign' or 'malignant' diagnosis to get a better understanding of the proportion of each kind of diagnosis in each kind of perimeter categories
-cancer_sample$perimeter_category2 <- fct_other(cancer_sample$perimeter_category, keep = c("medium", "small"))
 
-#Using an extension of our research questions, for the plot we check if there is a relationship between area and perimeter.
 
-#Plotting the different perimeter categories ie. 'small', 'medium' and 'other' as instructed in the question. Each data point helps distinguish between the kind of diagnosis.
-ggplot(cancer_sample, aes(x=fct_reorder(perimeter_category2, area_mean), y = area_mean)) + 
-  geom_boxplot()+
-  geom_jitter(aes(color = diagnosis), alpha = 0.6)
+
 ```
 
 <!-------------------------- Start your work below ---------------------------->
@@ -267,7 +263,7 @@ Fit a model or run a hypothesis test that provides insight on this variable with
 <!-------------------------- Start your work below ---------------------------->
 ```{r}
 #Fitting a linear model using 'lm' functio and getting the intercept and slope for regression equation y(area) = b1 + b2(perimeter)
-my_lm<-lm(formula = area_mean ~ perimeter_mean, data = cancer_sample)
+my_lm <-lm(formula = area_mean ~ perimeter_mean, data = cancer_sample)
 my_lm
 #Visualising the linear model 
 ggplot(cancer_sample, aes (perimeter_mean,area_mean)) + geom_point() + geom_smooth(method = "lm")
@@ -289,6 +285,8 @@ Produce something relevant from your fitted model: either predictions on Y, or a
 
 <!-------------------------- Start your work below ---------------------------->
 ```{r}
+#install.packages("broom")
+library(broom)
 #Using the tidy function from the broom package to obtain stastistical summaries for each component of the model. From the output we see that the slope parameter for the model is 14.3
 model_rds<-tidy(my_lm) 
 model_rds
@@ -345,10 +343,11 @@ Write your model object from Task 3 to an R binary file (an RDS), and load it ag
 -   The same robustness and reproducibility criteria as in 3.1 apply here.
 
 <!-------------------------- Start your work below ---------------------------->
+
 ```{r}
 saveRDS(model_rds, here::here("output", "regression_estimates.rds"))
 readRDS(here::here("output","regression_estimates.rds"))
-
+```
 <!----------------------------------------------------------------------------->
 
 # Tidy Repository
