@@ -124,7 +124,7 @@ Now, you should be more familiar with your data, and also have made progress in 
 Explain your decision for choosing the above two research questions.
 
 <!--------------------------- Start your work below --------------------------->
-#From the first milestone, with the boxplot visualisations, it was clear that there was a difference in mean_perimeter and mean_area for the different types of diagnosis. From the visualisations, it was clear that the mean_perimeter and mean_area was higher for malignant diagnosis as compared to benign diagnosis. It would be interesting to understand whether this difference is significant and whether these characteristics of the cancer cell can determine the type of diagnosis.
+#From the first milestone, with the boxplot visualisations, it was clear that there was a difference in mean_perimeter and mean_area for the different types of diagnosis. From the visualisations, it was clear that the mean_perimeter and mean_area was higher for malignant diagnosis as compared to benign diagnosis. It would be interesting to understand whether this difference is significant and whether these characteristics of the cancer cell can determine the type of diagnosis. Additionally, it would be interesting to understand the relationship between perimeter and area.
 <!----------------------------------------------------------------------------->
 
 Now, try to choose a version of your data that you think will be appropriate to answer these 2 questions. Use between 4 and 8 functions that we've covered so far (i.e. by filtering, cleaning, tidy'ing, dropping irrelevant columns, etc.).
@@ -170,10 +170,10 @@ cancer_sample_arranged<-cancer_sample%>% arrange(diagnosis,perimeter_mean)
 cancer_sample_arranged
 
 #Create categorical variable based on the mean of perimeter. We create different categories for the mean of parameter by defining ranges as shown below.
-perimeter_category <- cut(cancer_sample$perimeter_mean,
+
+cancer_sample$perimeter_category <- cut(cancer_sample$perimeter_mean,
                        breaks=c(0, 40, 80, 120, 160, 200),
                        labels=c('very small', 'small', 'medium', 'large', 'very large'))
-head(perimeter_category)
 cancer_sample
 
 #Creating a box plot to show the different the different categories of mean of perimeter. We also add geom_jitter() layer to differentiate by diagnosis.
@@ -215,23 +215,24 @@ head(cancer_sample_freq)
 ggplot(cancer_sample_freq, aes(perimeter_category)) + geom_bar()
 
 ```
-
-
-
-
 **Task Number**: 2
 
 <!----------------------------------------------------------------------------->
 ```{r}
+#Based on the plot above, we combine 'large' and 'very large' categories into 'other' because there are not too many data points in these categories. We further classify them into the 'benign' or 'malignant' diagnosis to get a better understanding of the proportion of each kind of diagnosis in each kind of perimeter categories
+cancer_sample$perimeter_category2 <- fct_other(cancer_sample$perimeter_category, keep = c("medium", "small"))
+cancer_sample
+#Using an extension of our research questions, for the plot we check if there is a relationship between area and perimeter.
 
+#Plotting the different perimeter categories ie. 'small', 'medium' and 'other' as instructed in the question. Each data point helps distinguish between the kind of diagnosis.
+ggplot(cancer_sample, aes(x=fct_reorder(perimeter_category2, area_mean), y = area_mean)) + 
+  geom_boxplot()+
+  geom_jitter(aes(color = diagnosis), alpha = 0.6)
 
 
 ```
-
 <!-------------------------- Start your work below ---------------------------->
  
-```
-
 **Task Number**: 3
 
 <!----------------------------------------------------------------------------->
@@ -332,8 +333,6 @@ dir.create(here::here("output"))
 write_csv(summary_stats, here::here("output", "summary_stats.csv")) 
 
 ```
- 
- 
 <!----------------------------------------------------------------------------->
 
 ## 3.2 (5 points)

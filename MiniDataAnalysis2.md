@@ -290,7 +290,9 @@ the different types of diagnosis. From the visualisations, it was clear
 that the mean_perimeter and mean_area was higher for malignant diagnosis
 as compared to benign diagnosis. It would be interesting to understand
 whether this difference is significant and whether these characteristics
-of the cancer cell can determine the type of diagnosis.
+of the cancer cell can determine the type of diagnosis. Additionally, it
+would be interesting to understand the relationship between perimeter
+and area.
 <!----------------------------------------------------------------------------->
 
 Now, try to choose a version of your data that you think will be
@@ -522,20 +524,14 @@ cancer_sample_arranged
 
 ``` r
 #Create categorical variable based on the mean of perimeter. We create different categories for the mean of parameter by defining ranges as shown below.
-perimeter_category <- cut(cancer_sample$perimeter_mean,
+
+cancer_sample$perimeter_category <- cut(cancer_sample$perimeter_mean,
                        breaks=c(0, 40, 80, 120, 160, 200),
                        labels=c('very small', 'small', 'medium', 'large', 'very large'))
-head(perimeter_category)
-```
-
-    ## [1] large  large  large  small  large  medium
-    ## Levels: very small small medium large very large
-
-``` r
 cancer_sample
 ```
 
-    ## # A tibble: 569 × 32
+    ## # A tibble: 569 × 33
     ##          ID diagnosis radius_m…¹ textu…² perim…³ area_…⁴ smoot…⁵ compa…⁶ conca…⁷
     ##       <dbl> <chr>          <dbl>   <dbl>   <dbl>   <dbl>   <dbl>   <dbl>   <dbl>
     ##  1   842302 M               18.0    10.4   123.    1001   0.118   0.278   0.300 
@@ -548,7 +544,7 @@ cancer_sample
     ##  8 84458202 M               13.7    20.8    90.2    578.  0.119   0.164   0.0937
     ##  9   844981 M               13      21.8    87.5    520.  0.127   0.193   0.186 
     ## 10 84501001 M               12.5    24.0    84.0    476.  0.119   0.240   0.227 
-    ## # … with 559 more rows, 23 more variables: concave_points_mean <dbl>,
+    ## # … with 559 more rows, 24 more variables: concave_points_mean <dbl>,
     ## #   symmetry_mean <dbl>, fractal_dimension_mean <dbl>, radius_se <dbl>,
     ## #   texture_se <dbl>, perimeter_se <dbl>, area_se <dbl>, smoothness_se <dbl>,
     ## #   compactness_se <dbl>, concavity_se <dbl>, concave_points_se <dbl>,
@@ -640,47 +636,97 @@ ggplot(cancer_sample_freq, aes(perimeter_category)) + geom_bar()
 ```
 
 ![](MiniDataAnalysis2_files/figure-gfm/unnamed-chunk-6-1.png)<!-- -->
-
 **Task Number**: 2
 
 <!----------------------------------------------------------------------------->
+
+``` r
+#Based on the plot above, we combine 'large' and 'very large' categories into 'other' because there are not too many data points in these categories. We further classify them into the 'benign' or 'malignant' diagnosis to get a better understanding of the proportion of each kind of diagnosis in each kind of perimeter categories
+cancer_sample$perimeter_category2 <- fct_other(cancer_sample$perimeter_category, keep = c("medium", "small"))
+cancer_sample
+```
+
+    ## # A tibble: 569 × 34
+    ##          ID diagnosis radius_m…¹ textu…² perim…³ area_…⁴ smoot…⁵ compa…⁶ conca…⁷
+    ##       <dbl> <chr>          <dbl>   <dbl>   <dbl>   <dbl>   <dbl>   <dbl>   <dbl>
+    ##  1   842302 M               18.0    10.4   123.    1001   0.118   0.278   0.300 
+    ##  2   842517 M               20.6    17.8   133.    1326   0.0847  0.0786  0.0869
+    ##  3 84300903 M               19.7    21.2   130     1203   0.110   0.160   0.197 
+    ##  4 84348301 M               11.4    20.4    77.6    386.  0.142   0.284   0.241 
+    ##  5 84358402 M               20.3    14.3   135.    1297   0.100   0.133   0.198 
+    ##  6   843786 M               12.4    15.7    82.6    477.  0.128   0.17    0.158 
+    ##  7   844359 M               18.2    20.0   120.    1040   0.0946  0.109   0.113 
+    ##  8 84458202 M               13.7    20.8    90.2    578.  0.119   0.164   0.0937
+    ##  9   844981 M               13      21.8    87.5    520.  0.127   0.193   0.186 
+    ## 10 84501001 M               12.5    24.0    84.0    476.  0.119   0.240   0.227 
+    ## # … with 559 more rows, 25 more variables: concave_points_mean <dbl>,
+    ## #   symmetry_mean <dbl>, fractal_dimension_mean <dbl>, radius_se <dbl>,
+    ## #   texture_se <dbl>, perimeter_se <dbl>, area_se <dbl>, smoothness_se <dbl>,
+    ## #   compactness_se <dbl>, concavity_se <dbl>, concave_points_se <dbl>,
+    ## #   symmetry_se <dbl>, fractal_dimension_se <dbl>, radius_worst <dbl>,
+    ## #   texture_worst <dbl>, perimeter_worst <dbl>, area_worst <dbl>,
+    ## #   smoothness_worst <dbl>, compactness_worst <dbl>, concavity_worst <dbl>, …
+
+``` r
+#Using an extension of our research questions, for the plot we check if there is a relationship between area and perimeter.
+
+#Plotting the different perimeter categories ie. 'small', 'medium' and 'other' as instructed in the question. Each data point helps distinguish between the kind of diagnosis.
+ggplot(cancer_sample, aes(x=fct_reorder(perimeter_category2, area_mean), y = area_mean)) + 
+  geom_boxplot()+
+  geom_jitter(aes(color = diagnosis), alpha = 0.6)
+```
+
+![](MiniDataAnalysis2_files/figure-gfm/unnamed-chunk-7-1.png)<!-- -->
 <!-------------------------- Start your work below ---------------------------->
 
+**Task Number**: 3
 
-    **Task Number**: 3
+<!----------------------------------------------------------------------------->
 
-    <!----------------------------------------------------------------------------->
+# Task 3: Modelling
 
-    # Task 3: Modelling
+## 2.0 (no points)
 
-    ## 2.0 (no points)
+Pick a research question, and pick a variable of interest (we’ll call it
+“Y”) that’s relevant to the research question. Indicate these.
 
-    Pick a research question, and pick a variable of interest (we'll call it "Y") that's relevant to the research question. Indicate these.
+<!-------------------------- Start your work below ---------------------------->
 
-    <!-------------------------- Start your work below ---------------------------->
+\#Research Question: Is there a significant relationship between area &
+perimeter?
 
-    #Research Question: Is there a significant relationship between area & perimeter?
+\#Variable of interest: y (independent variable) = area
 
-    #Variable of interest: y (independent variable) = area
+<!----------------------------------------------------------------------------->
 
-    <!----------------------------------------------------------------------------->
+## 2.1 (5 points)
 
-    ## 2.1 (5 points)
+Fit a model or run a hypothesis test that provides insight on this
+variable with respect to the research question. Store the model object
+as a variable, and print its output to screen. We’ll omit having to
+justify your choice, because we don’t expect you to know about model
+specifics in STAT 545.
 
-    Fit a model or run a hypothesis test that provides insight on this variable with respect to the research question. Store the model object as a variable, and print its output to screen. We'll omit having to justify your choice, because we don't expect you to know about model specifics in STAT 545.
+-   **Note**: It’s OK if you don’t know how these models/tests work.
+    Here are some examples of things you can do here, but the sky’s the
+    limit.
 
-    -   **Note**: It's OK if you don't know how these models/tests work. Here are some examples of things you can do here, but the sky's the limit.
+    -   You could fit a model that makes predictions on Y using another
+        variable, by using the `lm()` function.
+    -   You could test whether the mean of Y equals 0 using `t.test()`,
+        or maybe the mean across two groups are different using
+        `t.test()`, or maybe the mean across multiple groups are
+        different using `anova()` (you may have to pivot your data for
+        the latter two).
+    -   You could use `lm()` to test for significance of regression.
 
-        -   You could fit a model that makes predictions on Y using another variable, by using the `lm()` function.
-        -   You could test whether the mean of Y equals 0 using `t.test()`, or maybe the mean across two groups are different using `t.test()`, or maybe the mean across multiple groups are different using `anova()` (you may have to pivot your data for the latter two).
-        -   You could use `lm()` to test for significance of regression.
+<!-------------------------- Start your work below ---------------------------->
 
-    <!-------------------------- Start your work below ---------------------------->
-
-    ```r
-    #Fitting a linear model using 'lm' functio and getting the intercept and slope for regression equation y(area) = b1 + b2(perimeter)
-    my_lm <-lm(formula = area_mean ~ perimeter_mean, data = cancer_sample)
-    my_lm
+``` r
+#Fitting a linear model using 'lm' functio and getting the intercept and slope for regression equation y(area) = b1 + b2(perimeter)
+my_lm <-lm(formula = area_mean ~ perimeter_mean, data = cancer_sample)
+my_lm
+```
 
     ## 
     ## Call:
