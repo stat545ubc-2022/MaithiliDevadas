@@ -91,6 +91,10 @@ untidydata <- cancer_sample %>%
                 values_from = radius_mean)
 print(untidydata)
 
+#Display the untidy table
+select(untidydata,ID,M,B,perimeter_mean)
+
+
 #After: The variables of primary interest are in a column (diagnosis). This makes it easier to view the dataset and also visualize relationships between diagnosis and other variables of interest. The 'pivot_longer' command is used to create more rows.
 
 tidydata <- untidydata %>% 

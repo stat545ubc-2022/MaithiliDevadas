@@ -203,6 +203,26 @@ print(untidydata)
     ## #   concavity_worst <dbl>, concave_points_worst <dbl>, symmetry_worst <dbl>, …
 
 ``` r
+#Display the untidy table
+select(untidydata,ID,M,B,perimeter_mean)
+```
+
+    ## # A tibble: 569 × 4
+    ##          ID     M     B perimeter_mean
+    ##       <dbl> <dbl> <dbl>          <dbl>
+    ##  1   842302  18.0    NA          123. 
+    ##  2   842517  20.6    NA          133. 
+    ##  3 84300903  19.7    NA          130  
+    ##  4 84348301  11.4    NA           77.6
+    ##  5 84358402  20.3    NA          135. 
+    ##  6   843786  12.4    NA           82.6
+    ##  7   844359  18.2    NA          120. 
+    ##  8 84458202  13.7    NA           90.2
+    ##  9   844981  13      NA           87.5
+    ## 10 84501001  12.5    NA           84.0
+    ## # … with 559 more rows
+
+``` r
 #After: The variables of primary interest are in a column (diagnosis). This makes it easier to view the dataset and also visualize relationships between diagnosis and other variables of interest. The 'pivot_longer' command is used to create more rows.
 
 tidydata <- untidydata %>% 
