@@ -70,7 +70,7 @@ cancer_sample
 Eightvariables_cancersample <- cancer_sample %>% select(ID,diagnosis, radius_mean, texture_mean, perimeter_mean, area_mean, smoothness_mean, compactness_mean)
 Eightvariables_cancersample
 ```
-#The tidy-ness of the dataset is determined by the type of analysis one has to conduct. If the structure of the dataset is conducive to answering the research questions, we can call the dataset tidy. From the given definition, and data requirement for analysis, the above dataset is tidy. Each observation is a row. Each row has a unique ID that corresponds to an observation. Each column is a variable that represents the characteristics of a cancer cell. Each value is a reflection of the observation's cancer cell's characteristics. For example, Row 1 ID = 842302 is an observation, 17.99 (value) is the radius_mean(variable). This dataset is tidy because it is also easier to plot relationships for the given structure.
+**The tidy-ness of the dataset is determined by the type of analysis one has to conduct. If the structure of the dataset is conducive to answering the research questions, we can call the dataset tidy. From the given definition, and data requirement for analysis, the above dataset is tidy. Each observation is a row. Each row has a unique ID that corresponds to an observation. Each column is a variable that represents the characteristics of a cancer cell. Each value is a reflection of the observation's cancer cell's characteristics. For example, Row 1 ID = 842302 is an observation, 17.99 (value) is the radius_mean(variable). This dataset is tidy because it is also easier to plot relationships for the given structure.**
 
 <!----------------------------------------------------------------------------->
 
@@ -113,18 +113,18 @@ Now, you should be more familiar with your data, and also have made progress in 
 
 <!-------------------------- Start your work below ---------------------------->
 
-#1.   Is there a significant relationship between the perimeter of the nucleus and the type of  diagnosis i.e. malignant or benign? 
-#2.  Is there a significant relationship between the area and the type of diagnosis?
+**1.Is there a significant relationship between the perimeter of the nucleus and the type of  diagnosis i.e. malignant or benign?**
+**2.Is there a significant relationship between the area and the type of diagnosis?**
 
-#Additional question used for carrying out Task 2
-#3. What is the relationship between area_mean and perimeter_mean?
+**Additional question used for carrying out Task 2**
+**3. What is the relationship between area_mean and perimeter_mean?**
 
 <!----------------------------------------------------------------------------->
 
 Explain your decision for choosing the above two research questions.
 
 <!--------------------------- Start your work below --------------------------->
-#From the first milestone, with the boxplot visualisations, it was clear that there was a difference in mean_perimeter and mean_area for the different types of diagnosis. From the visualisations, it was clear that the mean_perimeter and mean_area was higher for malignant diagnosis as compared to benign diagnosis. It would be interesting to understand whether this difference is significant and whether these characteristics of the cancer cell can determine the type of diagnosis. Additionally, it would be interesting to understand the relationship between perimeter and area.
+**From the first milestone, with the boxplot visualisations, it was clear that there was a difference in mean_perimeter and mean_area for the different types of diagnosis. From the visualisations, it was clear that the mean_perimeter and mean_area was higher for malignant diagnosis as compared to benign diagnosis. It would be interesting to understand whether this difference is significant and whether these characteristics of the cancer cell can determine the type of diagnosis. Additionally, it would be interesting to understand the relationship between perimeter and area.**
 <!----------------------------------------------------------------------------->
 
 Now, try to choose a version of your data that you think will be appropriate to answer these 2 questions. Use between 4 and 8 functions that we've covered so far (i.e. by filtering, cleaning, tidy'ing, dropping irrelevant columns, etc.).
@@ -245,9 +245,9 @@ Pick a research question, and pick a variable of interest (we'll call it "Y") th
 
 <!-------------------------- Start your work below ---------------------------->
 
-#Research Question: Is there a significant relationship between area & perimeter?
+**Research Question: Is there a significant relationship between area & perimeter?**
 
-#Variable of interest: y (independent variable) = area
+**Variable of interest: y (independent variable) = area**
 
 <!----------------------------------------------------------------------------->
 

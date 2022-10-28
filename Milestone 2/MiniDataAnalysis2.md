@@ -145,7 +145,7 @@ Eightvariables_cancersample
     ## # … with 559 more rows, and abbreviated variable names ¹​perimeter_mean,
     ## #   ²​area_mean, ³​smoothness_mean, ⁴​compactness_mean
 
-\#The tidy-ness of the dataset is determined by the type of analysis one
+**The tidy-ness of the dataset is determined by the type of analysis one
 has to conduct. If the structure of the dataset is conducive to
 answering the research questions, we can call the dataset tidy. From the
 given definition, and data requirement for analysis, the above dataset
@@ -155,7 +155,7 @@ the characteristics of a cancer cell. Each value is a reflection of the
 observation’s cancer cell’s characteristics. For example, Row 1 ID =
 842302 is an observation, 17.99 (value) is the radius_mean(variable).
 This dataset is tidy because it is also easier to plot relationships for
-the given structure.
+the given structure.**
 
 <!----------------------------------------------------------------------------->
 
@@ -270,13 +270,13 @@ analysis in the next four tasks:
 
 <!-------------------------- Start your work below ---------------------------->
 
-\#1. Is there a significant relationship between the perimeter of the
-nucleus and the type of diagnosis i.e. malignant or benign? \#2. Is
+**1.Is there a significant relationship between the perimeter of the
+nucleus and the type of diagnosis i.e. malignant or benign?** **2.Is
 there a significant relationship between the area and the type of
-diagnosis?
+diagnosis?**
 
-\#Additional question used for carrying out Task 2 \#3. What is the
-relationship between area_mean and perimeter_mean?
+**Additional question used for carrying out Task 2** **3. What is the
+relationship between area_mean and perimeter_mean?**
 
 <!----------------------------------------------------------------------------->
 
@@ -284,7 +284,7 @@ Explain your decision for choosing the above two research questions.
 
 <!--------------------------- Start your work below --------------------------->
 
-\#From the first milestone, with the boxplot visualisations, it was
+**From the first milestone, with the boxplot visualisations, it was
 clear that there was a difference in mean_perimeter and mean_area for
 the different types of diagnosis. From the visualisations, it was clear
 that the mean_perimeter and mean_area was higher for malignant diagnosis
@@ -292,7 +292,7 @@ as compared to benign diagnosis. It would be interesting to understand
 whether this difference is significant and whether these characteristics
 of the cancer cell can determine the type of diagnosis. Additionally, it
 would be interesting to understand the relationship between perimeter
-and area.
+and area.**
 <!----------------------------------------------------------------------------->
 
 Now, try to choose a version of your data that you think will be
@@ -692,10 +692,10 @@ Pick a research question, and pick a variable of interest (we’ll call it
 
 <!-------------------------- Start your work below ---------------------------->
 
-\#Research Question: Is there a significant relationship between area &
-perimeter?
+**Research Question: Is there a significant relationship between area &
+perimeter?**
 
-\#Variable of interest: y (independent variable) = area
+**Variable of interest: y (independent variable) = area**
 
 <!----------------------------------------------------------------------------->
 
