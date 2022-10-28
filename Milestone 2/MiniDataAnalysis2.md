@@ -836,6 +836,7 @@ function.
 <!-------------------------- Start your work below ---------------------------->
 
 ``` r
+#Reproducing the summary stats table
 summary_stats <- cancer_sample %>%
   group_by(diagnosis) %>% 
   summarize(Min = min(perimeter_mean),
