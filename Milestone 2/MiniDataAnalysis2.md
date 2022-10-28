@@ -659,7 +659,7 @@ ggplot(cancer_sample_freq, aes(perimeter_category)) + geom_bar()
 ```
 
 ![](MiniDataAnalysis2_files/figure-gfm/unnamed-chunk-6-1.png)<!-- -->
-**Task Number**: 2
+**Task Number**: 1
 
 <!----------------------------------------------------------------------------->
 
@@ -706,7 +706,7 @@ ggplot(cancer_sample, aes(x=fct_reorder(perimeter_category2, area_mean), y = are
 ![](MiniDataAnalysis2_files/figure-gfm/unnamed-chunk-7-1.png)<!-- -->
 <!-------------------------- Start your work below ---------------------------->
 
-**Task Number**: 3
+**Task Number**: 2
 
 <!----------------------------------------------------------------------------->
 

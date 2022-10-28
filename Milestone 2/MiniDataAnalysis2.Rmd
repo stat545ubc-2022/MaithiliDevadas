@@ -222,7 +222,7 @@ head(cancer_sample_freq)
 ggplot(cancer_sample_freq, aes(perimeter_category)) + geom_bar()
 
 ```
-**Task Number**: 2
+**Task Number**: 1
 
 <!----------------------------------------------------------------------------->
 **Based on the plot above, we combine 'large' and 'very large' categories into 'other' because there are not too many data points in these categories. We further classify them into the 'benign' or 'malignant' diagnosis to get a better understanding of the proportion of each kind of diagnosis in each kind of perimeter categories**
@@ -238,7 +238,7 @@ ggplot(cancer_sample, aes(x=fct_reorder(perimeter_category2, area_mean), y = are
 ```
 <!-------------------------- Start your work below ---------------------------->
  
-**Task Number**: 3
+**Task Number**: 2
 
 <!----------------------------------------------------------------------------->
 
