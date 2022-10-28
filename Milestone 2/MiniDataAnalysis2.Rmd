@@ -227,11 +227,6 @@ ggplot(cancer_sample_freq, aes(perimeter_category)) + geom_bar()
 cancer_sample$perimeter_category2 <- fct_other(cancer_sample$perimeter_category, keep = c("medium", "small"))
 cancer_sample
 
-```
-
-**Using an extension of our research questions, for the plot we check if there is a relationship between area and perimeter**
-
-```{r}
 #Plotting the different perimeter categories ie. 'small', 'medium' and 'other' as instructed in the question. Each data point helps distinguish between the kind of diagnosis.
 ggplot(cancer_sample, aes(x=fct_reorder(perimeter_category2, area_mean), y = area_mean)) + 
   geom_boxplot()+
@@ -267,6 +262,7 @@ Fit a model or run a hypothesis test that provides insight on this variable with
     -   You could test whether the mean of Y equals 0 using `t.test()`, or maybe the mean across two groups are different using `t.test()`, or maybe the mean across multiple groups are different using `anova()` (you may have to pivot your data for the latter two).
     -   You could use `lm()` to test for significance of regression.
 
+**Using an extension of our research questions, for the plot we check if there is a relationship between area and perimeter**
 <!-------------------------- Start your work below ---------------------------->
 ```{r}
 #Fitting a linear model using 'lm' functio and getting the intercept and slope for regression equation y(area) = b1 + b2(perimeter)
@@ -403,7 +399,7 @@ This Milestone 1 document knits error-free, and the Milestone 2 document knits e
 
 You've tagged a release for Milestone 1, and you've tagged a release for Milestone 2.
 
-### Attribution
+#### Attribution
 
 Thanks to Victor Yuan for mostly putting this together.
 

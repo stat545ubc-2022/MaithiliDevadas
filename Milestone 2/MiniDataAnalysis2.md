@@ -676,9 +676,6 @@ cancer_sample
     ## #   texture_worst <dbl>, perimeter_worst <dbl>, area_worst <dbl>,
     ## #   smoothness_worst <dbl>, compactness_worst <dbl>, concavity_worst <dbl>, …
 
-**Using an extension of our research questions, for the plot we check if
-there is a relationship between area and perimeter**
-
 ``` r
 #Plotting the different perimeter categories ie. 'small', 'medium' and 'other' as instructed in the question. Each data point helps distinguish between the kind of diagnosis.
 ggplot(cancer_sample, aes(x=fct_reorder(perimeter_category2, area_mean), y = area_mean)) + 
@@ -686,7 +683,7 @@ ggplot(cancer_sample, aes(x=fct_reorder(perimeter_category2, area_mean), y = are
   geom_jitter(aes(color = diagnosis), alpha = 0.6)
 ```
 
-![](MiniDataAnalysis2_files/figure-gfm/unnamed-chunk-8-1.png)<!-- -->
+![](MiniDataAnalysis2_files/figure-gfm/unnamed-chunk-7-1.png)<!-- -->
 <!-------------------------- Start your work below ---------------------------->
 
 **Task Number**: 3
@@ -730,6 +727,8 @@ specifics in STAT 545.
         the latter two).
     -   You could use `lm()` to test for significance of regression.
 
+**Using an extension of our research questions, for the plot we check if
+there is a relationship between area and perimeter**
 <!-------------------------- Start your work below ---------------------------->
 
 ``` r
@@ -753,7 +752,7 @@ ggplot(cancer_sample, aes (perimeter_mean,area_mean)) + geom_point() + geom_smoo
 
     ## `geom_smooth()` using formula 'y ~ x'
 
-![](MiniDataAnalysis2_files/figure-gfm/unnamed-chunk-9-1.png)<!-- -->
+![](MiniDataAnalysis2_files/figure-gfm/unnamed-chunk-8-1.png)<!-- -->
 
 ``` r
 #Calculating the correlation of coefficient (r) to understand the strength and direction of the relationship.
@@ -984,6 +983,6 @@ knits error-free.
 You’ve tagged a release for Milestone 1, and you’ve tagged a release for
 Milestone 2.
 
-### Attribution
+#### Attribution
 
 Thanks to Victor Yuan for mostly putting this together.
