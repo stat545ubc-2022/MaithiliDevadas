@@ -271,11 +271,12 @@ analysis in the next four tasks:
 <!-------------------------- Start your work below ---------------------------->
 
 **1.Is there a significant relationship between the perimeter of the
-nucleus and the type of diagnosis i.e. malignant or benign?** **2.Is
-there a significant relationship between the area and the type of
+nucleus and the type of diagnosis i.e. malignant or benign?**
+
+**2.Is there a significant relationship between the area and the type of
 diagnosis?**
 
-**Additional question used for carrying out Task 2** **3. What is the
+**Additional question used for carrying out Task 3** **3. What is the
 relationship between area_mean and perimeter_mean?**
 
 <!----------------------------------------------------------------------------->
@@ -290,9 +291,9 @@ the different types of diagnosis. From the visualisations, it was clear
 that the mean_perimeter and mean_area was higher for malignant diagnosis
 as compared to benign diagnosis. It would be interesting to understand
 whether this difference is significant and whether these characteristics
-of the cancer cell can determine the type of diagnosis. Additionally, it
-would be interesting to understand the relationship between perimeter
-and area.**
+of the cancer cell can determine the type of diagnosis. Additionally, as
+an extension of Q1 and Q2, it would be interesting to understand the
+relationship between perimeter and area.**
 <!----------------------------------------------------------------------------->
 
 Now, try to choose a version of your data that you think will be
@@ -528,6 +529,8 @@ cancer_sample_arranged
 cancer_sample$perimeter_category <- cut(cancer_sample$perimeter_mean,
                        breaks=c(0, 40, 80, 120, 160, 200),
                        labels=c('very small', 'small', 'medium', 'large', 'very large'))
+
+#Viewing the addition of extra variable 
 cancer_sample
 ```
 
@@ -640,8 +643,14 @@ ggplot(cancer_sample_freq, aes(perimeter_category)) + geom_bar()
 
 <!----------------------------------------------------------------------------->
 
+**Based on the plot above, we combine ‘large’ and ‘very large’
+categories into ‘other’ because there are not too many data points in
+these categories. We further classify them into the ‘benign’ or
+‘malignant’ diagnosis to get a better understanding of the proportion of
+each kind of diagnosis in each kind of perimeter categories**
+
 ``` r
-#Based on the plot above, we combine 'large' and 'very large' categories into 'other' because there are not too many data points in these categories. We further classify them into the 'benign' or 'malignant' diagnosis to get a better understanding of the proportion of each kind of diagnosis in each kind of perimeter categories
+#Combining 'large' and 'very large' into 'other' category. Adding this information into 'perimeter_category2'
 cancer_sample$perimeter_category2 <- fct_other(cancer_sample$perimeter_category, keep = c("medium", "small"))
 cancer_sample
 ```
@@ -667,16 +676,17 @@ cancer_sample
     ## #   texture_worst <dbl>, perimeter_worst <dbl>, area_worst <dbl>,
     ## #   smoothness_worst <dbl>, compactness_worst <dbl>, concavity_worst <dbl>, …
 
-``` r
-#Using an extension of our research questions, for the plot we check if there is a relationship between area and perimeter.
+**Using an extension of our research questions, for the plot we check if
+there is a relationship between area and perimeter**
 
+``` r
 #Plotting the different perimeter categories ie. 'small', 'medium' and 'other' as instructed in the question. Each data point helps distinguish between the kind of diagnosis.
 ggplot(cancer_sample, aes(x=fct_reorder(perimeter_category2, area_mean), y = area_mean)) + 
   geom_boxplot()+
   geom_jitter(aes(color = diagnosis), alpha = 0.6)
 ```
 
-![](MiniDataAnalysis2_files/figure-gfm/unnamed-chunk-7-1.png)<!-- -->
+![](MiniDataAnalysis2_files/figure-gfm/unnamed-chunk-8-1.png)<!-- -->
 <!-------------------------- Start your work below ---------------------------->
 
 **Task Number**: 3
@@ -743,7 +753,7 @@ ggplot(cancer_sample, aes (perimeter_mean,area_mean)) + geom_point() + geom_smoo
 
     ## `geom_smooth()` using formula 'y ~ x'
 
-![](MiniDataAnalysis2_files/figure-gfm/unnamed-chunk-8-1.png)<!-- -->
+![](MiniDataAnalysis2_files/figure-gfm/unnamed-chunk-9-1.png)<!-- -->
 
 ``` r
 #Calculating the correlation of coefficient (r) to understand the strength and direction of the relationship.
@@ -751,6 +761,9 @@ cor(cancer_sample$area_mean, cancer_sample$perimeter_mean)
 ```
 
     ## [1] 0.9865068
+
+**The correlation coefficient of 0.98 signifies a strong positive
+relationship between our x(perimeter) and y (area) varibles.**
 
 <!----------------------------------------------------------------------------->
 
@@ -773,7 +786,7 @@ Y, or a single value like a regression coefficient or a p-value.
 ``` r
 #install.packages("broom")
 library(broom)
-#Using the tidy function from the broom package to obtain stastistical summaries for each component of the model. From the output we see that the slope parameter for the model is 14.3
+#Using the tidy function from the broom package to obtain stastistical summaries for each component of the model. 
 model_rds<-tidy(my_lm) 
 model_rds
 ```
@@ -783,6 +796,9 @@ model_rds
     ##   <chr>             <dbl>     <dbl>     <dbl>     <dbl>
     ## 1 (Intercept)      -659.     9.47       -69.6 7.04e-280
     ## 2 perimeter_mean     14.3    0.0996     143.  0
+
+**From the output we see that the slope parameter for the model is
+14.3**
 
 ``` r
 #Using the augment() function from thhe broom package to make predictions on a dataset by augmenting predictions as a new column to your data
